@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.fatec.itu.product.dtos.ProductRequest;
 import com.fatec.itu.product.entities.Product;
 import com.fatec.itu.product.services.ProductService;
 
@@ -48,9 +49,10 @@ public ResponseEntity<Void> deleteProductById(@PathVariable long id)
 
 //nivel de maturidade 2 -- post
  @PostMapping
-    public ResponseEntity<Product> saveProduct(@RequestBody Product product)//indica que os dados vem do http do metodo post -- recebe os dados do produto que quero salvar
+    public ResponseEntity<Product> saveProduct(@RequestBody ProductRequest request)//indica que os dados vem do http do metodo post -- recebe os dados do produto que quero salvar
     {
-        Product newProduct = service.saveProduct(product);
+        Product newProduct = service.saveProduct(request);
+
         
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -63,10 +65,10 @@ public ResponseEntity<Void> deleteProductById(@PathVariable long id)
 
       @PutMapping("{id}")
     public ResponseEntity<Void> updateProduct( @PathVariable long id,
-                                               @RequestBody Product product
+                                               @RequestBody ProductRequest request
                                               )
     {
-        service.updateProduct(product, id);
+        service.updateProduct(request, id);
         return ResponseEntity.noContent().build();
     }
 
