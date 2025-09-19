@@ -20,6 +20,8 @@ import com.fatec.itu.product.dtos.ProductResponse;
 import com.fatec.itu.product.entities.Product;
 import com.fatec.itu.product.services.ProductService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("products")
 public class ProductController {
@@ -49,7 +51,7 @@ public ResponseEntity<Void> deleteProductById(@PathVariable long id)
 
 //nivel de maturidade 2 -- post
  @PostMapping
-    public ResponseEntity<ProductResponse> saveProduct(@RequestBody ProductRequest request)//indica que os dados vem do http do metodo post -- recebe os dados do produto que quero salvar
+    public ResponseEntity<ProductResponse> saveProduct(@Valid @RequestBody ProductRequest request)//indica que os dados vem do http do metodo post -- recebe os dados do produto que quero salvar
     {
         ProductResponse newProduct = service.saveProduct(request);
 
@@ -64,7 +66,7 @@ public ResponseEntity<Void> deleteProductById(@PathVariable long id)
     }
 
       @PutMapping("{id}")
-    public ResponseEntity<Void> updateProduct( @PathVariable long id,
+    public ResponseEntity<Void> updateProduct(  @PathVariable long id, @Valid
                                                @RequestBody ProductRequest request
                                               )
     {
