@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fatec.itu.product.dtos.ProductRequest;
+import com.fatec.itu.product.dtos.ProductResponse;
 import com.fatec.itu.product.entities.Product;
 import com.fatec.itu.product.services.ProductService;
 
@@ -28,15 +29,14 @@ public class ProductController {
     //metodo
     //retorna todos os produtos cadastrados no banco -- repositorio
     @GetMapping
-    public ResponseEntity<List<Product>> getProducts(){
+    public ResponseEntity<List<ProductResponse>> getProducts(){
 
     return ResponseEntity.ok(service.getAllProducts());
-
-    
    }
+
 //atraves dele que eu devolvo o status code correto
    @GetMapping("{id}")
-public ResponseEntity<Product> getProductById(@PathVariable long id) {
+public ResponseEntity<ProductResponse> getProductById(@PathVariable long id) {
         return ResponseEntity.ok(service.getProductById(id));
 }
 
@@ -49,15 +49,15 @@ public ResponseEntity<Void> deleteProductById(@PathVariable long id)
 
 //nivel de maturidade 2 -- post
  @PostMapping
-    public ResponseEntity<Product> saveProduct(@RequestBody ProductRequest request)//indica que os dados vem do http do metodo post -- recebe os dados do produto que quero salvar
+    public ResponseEntity<ProductResponse> saveProduct(@RequestBody ProductRequest request)//indica que os dados vem do http do metodo post -- recebe os dados do produto que quero salvar
     {
-        Product newProduct = service.saveProduct(request);
+        ProductResponse newProduct = service.saveProduct(request);
 
         
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newProduct.getId())
+                .buildAndExpand(newProduct.id())
                 .toUri();
         return ResponseEntity.created(location)
                              .body(newProduct);
