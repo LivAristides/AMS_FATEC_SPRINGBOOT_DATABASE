@@ -74,5 +74,10 @@ public ResponseEntity<Void> deleteProductById(@PathVariable long id)
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("category/{categoryId}")
+    public ResponseEntity<Object> getProductsByCategory(@PathVariable long categoryId) {
+        return ResponseEntity.ok(service.getProductsByCategory(categoryId));
+    }
+
 
 }

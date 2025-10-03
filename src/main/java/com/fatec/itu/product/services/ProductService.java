@@ -55,4 +55,9 @@ public class ProductService {
 
         repository.save(aux);
     }
+
+       public Object getProductsByCategory(long categoryId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getProductsByCategory'");
+       }
 }
